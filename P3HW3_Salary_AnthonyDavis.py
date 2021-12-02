@@ -13,19 +13,25 @@
 # number of hours worked, overtime hours, overtime pay , pay for regular hours and gross pay).
 
 name = input("Please enter employee's name: ")
-hours_worked = float(input('Please enter hours worked this MONTH: '))
+hours_worked = float(input('Please enter hours worked this week: '))
 pay_rate = float(input("Please enter employee's pay rate: "))
 print ('------------------------------------------')
 
-reg_pay = hours_worked * pay_rate # Regular pay
+if (hours_worked > 40) and (hours_worked < 80):
+    reg_pay = (hours_worked - hours_worked % 40) * pay_rate # Total code for regular pay
+elif hours_worked >= 80:
+    reg_pay = (hours_worked - hours_worked % 40 - 40) * pay_rate
+else:
+    reg_pay = hours_worked * pay_rate
+
 over_time_rate = pay_rate * 1.5 # Time and a half pay
 
-if hours_worked <= 160: # Formula for over time hours.
+if hours_worked <= 40: # Formula for over time hours.
     over_time = 0
-elif (hours_worked > 160) and (hours_worked < 320):
-    over_time = hours_worked % 160
+elif (hours_worked > 40) and (hours_worked < 80):
+    over_time = hours_worked % 40
 else:
-    over_time = hours_worked - 160
+    over_time = hours_worked - 40
 
 over_time_pay = over_time * over_time_rate # Over time pay
 gross_pay = reg_pay + over_time_pay # Total pay
